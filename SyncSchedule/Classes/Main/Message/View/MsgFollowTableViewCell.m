@@ -35,12 +35,14 @@
 
 - (IBAction)sureClickHandler:(id)sender
 {
-    
+    if (self.dealClick)
+        self.dealClick(1);
 }
 
 - (IBAction)refuseClickHandler:(id)sender
 {
-    
+    if (self.dealClick)
+        self.dealClick(2);
 }
 
 - (void)awakeFromNib {
@@ -56,21 +58,45 @@
     
     _sureBtn.backgroundColor = MTColor(81, 169, 56);
     _sureBtn.layer.cornerRadius = 4;
-    _sureBtn.hidden = self.isEnded;
     
     _refuseBtn.backgroundColor = [UIColor redColor];
     _refuseBtn.layer.cornerRadius = 4;
-    _refuseBtn.hidden = self.isEnded;
-    
-    _subLab.hidden = !self.isEnded;
 
     _timeLab.hidden = YES;
 }
 
--(void)setEnded:(Boolean)ended
+-(void)setItem:(MsgModel *)item
 {
-    _ended = ended;
-    [self initView];
+    _item = item;
+    self.contentLab.text = item.msgContent;
+    
+//    消息状态，0:未处理，1：同意，2：拒绝
+    switch ([item.state integerValue])
+    {
+        case 0:
+        {
+            self.sureBtn.hidden = self.refuseBtn.hidden = NO;
+            self.subLab.hidden = YES;
+        }
+            break;
+        case 1:
+        {
+            self.sureBtn.hidden = self.refuseBtn.hidden = YES;
+            self.subLab.hidden = NO;
+            self.subLab.text = @"已同意";
+
+        }
+            break;
+        case 2:
+        {
+            self.sureBtn.hidden = self.refuseBtn.hidden = YES;
+            self.subLab.hidden = NO;
+            self.subLab.text = @"已拒绝";
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 

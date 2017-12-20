@@ -10,4 +10,11 @@
 
 @interface UserModel : NSObject
 
+@property (nonatomic, copy) NSString *responseMsg;
+
+@property (nonatomic, copy) NSString *accessToken;
+
+@property (nonatomic, copy) NSString *userId;
+
+@property (nonatomic, copy) NSString *userName;
 @end

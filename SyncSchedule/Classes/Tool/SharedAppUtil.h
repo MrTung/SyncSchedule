@@ -9,38 +9,21 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
-#import "CityModel.h"
-#import "BBSUserModel.h"
 
 @interface SharedAppUtil : NSObject
 
 +(SharedAppUtil *)defaultCommonUtil;
 
-// 检查本地登录状态
-+(BOOL)checkLoginStates;
+/**用户设置的想要上传的日历type*/
+@property (nonatomic, retain) NSString *filterType;
 
-@property (nonatomic, retain) UserModel *userVO;
+@property (nonatomic, strong) UserModel *usermodel;
 
-@property (nonatomic, retain) BBSUserModel *bbsVO;
+@property (nonatomic, strong) UINavigationController *activeNavgation;
 
-@property (nonatomic, retain) CityModel *cityVO;
+@property (nonatomic, retain) NSString *commonDeviceToke;
 
-// 客服账号
-@property (nonatomic, retain) NSString *serviceCount;
-
-@property (nonatomic, retain) UITabBarController *tabBar;
-
-@property (nonatomic, copy) NSString *deviceToken;
-
-@property (nonatomic, copy) NSString *lon;
-
-@property (nonatomic, copy) NSString *lat;
-
-/**
- *  判断是否需要刷新健康数据  当做出了绑定或者解绑操作之后需要更新健康数据
- */
-@property (nonatomic, assign) BOOL needRefleshMonitor;
-
+@property (nonatomic, retain) NSString *silentDeviceToken;
 
 
 @end

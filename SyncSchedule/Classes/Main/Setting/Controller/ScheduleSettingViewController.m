@@ -8,7 +8,15 @@
 
 #import "ScheduleSettingViewController.h"
 
+#import <EventKit/EventKit.h>
+
 @interface ScheduleSettingViewController ()
+{
+    NSArray<EKCalendar *> *typeArr;
+    NSMutableArray *itemArr;
+}
+@property (nonatomic , retain) EKEventStore *store;
+
 
 @end
 
@@ -16,22 +24,86 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.title = @"同步设置";
+    
+    [self setTableHeadView];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.store = [[EKEventStore alloc]init];
+    [self.store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {}];
+    typeArr = [self.store calendarsForEntityType:EKEntityTypeEvent];
+    
+    [self setupGroup];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)setTableHeadView
+{
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, MTScreenW, 30)];
+    lab.text = @"请选择您要同步的日程分类";
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.textColor = [UIColor orangeColor];
+    lab.font = [UIFont systemFontOfSize:12];
+    self.tableView.tableHeaderView = lab;
 }
-*/
+
+
+- (void)setupGroup
+{
+    itemArr = [[NSMutableArray alloc] init];
+    // 1.创建组
+    MTCommonGroup *group = [MTCommonGroup group];
+    [self.groups addObject:group];
+    
+    for (EKCalendar *item in typeArr) {
+        
+        
+        if (item.type ==  EKCalendarTypeLocal || item.type == EKCalendarTypeCalDAV)
+        {
+            MTCommonCheckItem *version = [MTCommonCheckItem itemWithTitle:item.title icon:@"nil"];
+            
+            __weak __typeof(MTCommonCheckItem*)weakItem = version;
+            
+            if ([item.title isEqualToString:[SharedAppUtil defaultCommonUtil].filterType])
+                version.checked = YES;
+            
+            if ([item.title isEqualToString:kAttentionType])
+                 continue;
+            
+            version.operation = ^(void){
+                weakItem.checked = YES;
+                
+                for (MTCommonCheckItem *checkItem in group.items ) {
+                    if (checkItem == version)
+                        continue;
+                    else
+                        checkItem.checked = NO;
+                }
+                
+                [self.tableView reloadData];
+                
+                [self setFilterKey:weakItem];
+            };
+            
+            [itemArr addObject:version];
+        }
+    }
+    group.items = [itemArr copy];
+}
+
+-(void)setFilterKey:(MTCommonCheckItem *)item
+{
+    [SharedAppUtil defaultCommonUtil].filterType = item.title;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:item.title forKey:Fiflter_Key];
+}
+
+
 
 @end

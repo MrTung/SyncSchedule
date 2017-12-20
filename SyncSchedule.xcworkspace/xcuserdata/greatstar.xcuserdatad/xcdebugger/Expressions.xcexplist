@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[MainViewController loadDataFromServerWithURL:]:MainViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[url1 port] integerValue]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MainViewController getLocalSchedules]:MainViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[EventManger getThisMonthFromFifteenDaysAgo]:EventManger.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[EventManger filterArr:]:EventManger.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "event.calendar.title">
+            </PersistentString>
+            <PersistentString
+               value = "[SharedAppUtil defaultCommonUtil].filterType]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MainViewController stream:handleEvent:]:MainViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate application:didFinishLaunchingWithOptions:]:AppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[NSUserDefaults standardUserDefaults] valueForKey:@&quot;wakeUpTime&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

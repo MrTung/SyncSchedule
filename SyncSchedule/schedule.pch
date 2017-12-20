@@ -15,8 +15,138 @@
 
 #endif /* schedule_pch */
 
+/** 自定义Log，日志开关 0-关闭 1-开启 */
+#define __LOGDEBUG__ (1)
+
+#if defined(__LOGDEBUG__) && __LOGDEBUG__ && DEBUG
+#define MT_Log(...) NSLog(__VA_ARGS__)
+#else
+#define MT_Log(...)
+#endif
+
+/**
+ *  用户信息归档key
+ */
+#define User_Archiver_Key @"userInfor"
+/**
+ *  用户信息归档路径
+ */
+#define User_Archiver_Path @"userInforPath"
+
+/**
+ *  本地日程归档key
+ */
+#define UploadedSchedule_Archiver_Key @"uploadedSchedule_key"
+/**
+ *   本地日程归档路径
+ */
+#define UploadedSchedule_Archiver_Path @"uploadedSchedule_path"
+
+
+/**
+ *  订阅日志分类
+ */
+#define kAttentionType @"订阅的日志"
+
+/**
+ *  上传日志分类
+ */
+#define kSharedType @"共享的日志"
+
+/**
+ *  过滤信息归档key
+ */
+#define Fiflter_Key @"fifterKey"
+
+// 全局背景色
+#define MTGlobalBg HMColor(235, 235, 235)
+
 // 颜色
 #define MTColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 
+//导航栏背景色
+#define MTNavgationBackgroundColor [UIColor colorWithRed:12/255.0 green:167/255.0 blue:161/255.0 alpha:1.0]
+
+#define MTNotificationCenter [NSNotificationCenter defaultCenter]
+/**
+ *  建立监听
+ */
+#define MTAddObsver(methodName, noteName) [MTNotificationCenter addObserver:self selector:@selector(methodName:) name:noteName object:nil];
+/**
+ *  发出监听
+ */
+#define MTDispatchObsver(noteName, object) [MTNotificationCenter postNotificationName:noteName object:object userInfo:nil];
+/**
+ *  移除监听
+ */
+#define MTRemoveObsver [MTNotificationCenter removeObserver:self];
+
+
+#import <FMDB.h>
+#import "MTSeting.h"
+#import "EventManger.h"
 #import "UIView+Extension.h"
+#import "UIView+Toast.h"
 #import "UIColor+RGB.h"
+#import "UIBarButtonItem+Extension.h"
+#import "SharedAppUtil.h"
+#import "SecurityUtil.h"
+#import "MJExtension.h"
+#import "ArchiverCacheHelper.h"
+#import "ScheduleDBHelper.h"
+#import "Networking.h"
+#import "MBProgressHUD.h"
+#import "UserModel.h"
+#import "CommonRemoteHelper.h"
+#import "NoticeHelper.h"
+#import "MTControllerChooseTool.h"
+#import "MJRefresh.h"
+
+#import "MMDrawerBarButtonItem.h"
+#import "UIViewController+MMDrawerController.h"
+
+#define URL_Local @"http://gs.toolmall.com/"
+
+//#define URL_Local @"http://192.168.2.160:8088/"
+
+
+
+/***登录url*/
+#define URL_Login [NSString stringWithFormat:@"%@user/login.jhtm?",URL_Local]
+
+/***注销url*/
+#define URL_Loginout [NSString stringWithFormat:@"%@user/logout.jhtm?",URL_Local]
+
+/***获取订阅列表url*/
+#define URL_GetAttentionList [NSString stringWithFormat:@"%@attention/getList.jhtm?",URL_Local]
+
+/***订阅url*/
+#define URL_AddAttention [NSString stringWithFormat:@"%@attention/add.jhtm?",URL_Local]
+
+/***取消订阅url*/
+#define URL_CancelAttention [NSString stringWithFormat:@"%@attention/cancel.jhtm?",URL_Local]
+
+/***获取消息提醒列表url*/
+#define URL_GetMsglist [NSString stringWithFormat:@"%@message/getList.jhtm?",URL_Local]
+
+/***操作消息url*/
+#define URL_DealMsg [NSString stringWithFormat:@"%@message/dealMsg.jhtm?",URL_Local]
+
+/***上传本地日程信息url*/
+#define URL_Upload [NSString stringWithFormat:@"%@schedule/upload.jhtm?",URL_Local]
+
+/***下载订阅的人的日程信息url*/
+#define URL_Download [NSString stringWithFormat:@"%@schedule/download.jhtm?",URL_Local]
+
+/***查询服务器配置参数url*/
+#define URL_QuerySettin [NSString stringWithFormat:@"%@system/querySetting.jhtm?",URL_Local]
+
+/***激活成功url*/
+#define URL_recordSuccess [NSString stringWithFormat:@"%@sendMsg/recordSuccess.jhtm?",URL_Local]
+
+/***获取设置提醒url*/
+#define URL_showNotifitySetting [NSString stringWithFormat:@"%@userNotifiy/showNotifitySetting.jhtm?",URL_Local]
+
+/***设置提醒url*/
+#define URL_updateNotifitySetting [NSString stringWithFormat:@"%@userNotifiy/updateNotifitySetting.jhtm?",URL_Local]
+

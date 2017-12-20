@@ -8,7 +8,7 @@
 
 #import "MsgViewController.h"
 #import "MsgFollowTableViewCell.h"
-
+#import "MsgModel.h"
 
 @interface MsgViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -27,8 +27,6 @@
     self.title = @"我的消息";
     
     [self initTableView];
-    
-    [self getMsgDataProvider];
 }
 
 -(void)initTableView
@@ -41,6 +39,13 @@
     [self.view addSubview:_tableView];
     _tableView.backgroundColor = MTGlobalBg;
     [_tableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self getMsgDataProvider];
 }
 
 #pragma mark 网络访问
@@ -60,7 +65,7 @@
                                          return [NoticeHelper AlertShow:[dict valueForKey:@"attentionList"]];
                                      }
                                      
-                                     dataProvider = [UserModel mj_objectArrayWithKeyValuesArray:[dict valueForKey:@"attentionList"]];
+                                     dataProvider = [MsgModel mj_objectArrayWithKeyValuesArray:[dict valueForKey:@"msgList"]];
                                      
                                      [_tableView reloadData];
                                      
@@ -69,7 +74,6 @@
                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
                                      
                                  }];
-    
 }
 
 
@@ -83,7 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return dataProvider.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,8 +98,33 @@
     if (cell == nil) {
         cell = [MsgFollowTableViewCell createCellWithTableView:tableView];
     }
-      cell.ended = indexPath.row%2 == 1;
+    MsgModel *model = dataProvider[indexPath.row];
     
+    [cell setItem:model];
+    
+    cell.dealClick = ^(NSInteger dealType) {
+        
+        [CommonRemoteHelper RemoteWithUrl:URL_DealMsg
+                               parameters: @{@"userId" : [SharedAppUtil defaultCommonUtil].usermodel.userId,
+                                             @"accessToken" : [SharedAppUtil defaultCommonUtil].usermodel.accessToken,
+                                             @"msgId" : model.msgId,
+                                             @"type" : [NSString stringWithFormat:@"%ld",(long)dealType]}
+                                     type:CommonRemoteTypePost success:^(NSDictionary *dict, id responseObject) {
+                                         
+                                         [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                         
+                                         if ([[dict valueForKey:@"code"] integerValue] != 200) {
+                                             return [NoticeHelper AlertShow:@"操作失败，请重试"];
+                                         }
+                                         [self getMsgDataProvider];
+                                         
+                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                         
+                                         [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                         
+                                     }];
+
+    };
     return cell;
 }
 

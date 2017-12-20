@@ -2,8 +2,8 @@
 //  LoginViewController.h
 //  SyncSchedule
 //
-//  Created by greatstar on 2017/4/7.
-//  Copyright © 2017年 greatstar. All rights reserved.
+//  Created by 董徐维 on 15/8/12.
+//  Copyright (c) 2015年 董徐维. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

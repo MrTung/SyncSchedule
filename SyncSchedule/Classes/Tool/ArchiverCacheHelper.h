@@ -15,7 +15,7 @@
  *
  *  @param saveObj  要保存的NSMutableArray对象
  *  @param key      key
- *  @param fildPath 保存路径
+ *  @param filePath 保存路径
  */
 +(void)saveNSMutableArrayToLoacl:(NSMutableArray *)saveObj key:(NSString *)key filePath:(NSString *)filePath;
 
@@ -24,7 +24,7 @@
  *
  *  @param saveObj  要保存的对象
  *  @param key      key
- *  @param fildPath 保存路径
+ *  @param filePath 保存路径
  */
 +(void)saveObjectToLoacl:(NSObject *)saveObj key:(NSString *)key filePath:(NSString *)filePath;
 

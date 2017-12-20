@@ -19,10 +19,13 @@
 -(NSArray *)getThisMonthFromFirstDay;
 -(NSArray *)getThisMonthFromFifteenDaysAgo;
 
+
+-(NSArray *)getThisMonthFromFifteenDaysAgoLocal;
+
 -(EKEventStore *)store;
 
 -(BOOL)deleteEvent:(EKEvent *)event;
 -(BOOL)createEvent:(EKEvent *)event;
 -(BOOL)saveEvent:(EKEvent *)event;
-
+-(void)creatSharedCalendar;
 @end

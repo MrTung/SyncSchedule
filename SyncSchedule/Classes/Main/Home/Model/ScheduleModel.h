@@ -25,10 +25,10 @@
 @property (nonatomic, copy) NSString *title;
 
 /**开始时间*/
-@property (nonatomic, strong) NSDate *startDate;
+@property (nonatomic, copy) NSString *beginTime;
 
 /**结束时间*/
-@property (nonatomic, strong) NSDate *endDate;
+@property (nonatomic, copy) NSString *endTime;
 
 /**备注*/
 @property (nonatomic, copy) NSString *notes;

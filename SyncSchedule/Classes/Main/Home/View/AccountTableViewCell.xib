@@ -1,19 +1,71 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AccountTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="AccountTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="59" id="KGk-i7-Jjw" customClass="AccountTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headIcon_0" translatesAutoresizingMaskIntoConstraints="NO" id="aoM-wM-amn">
+                        <rect key="frame" x="10" y="10" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="Ecq-9f-Mlz"/>
+                            <constraint firstAttribute="width" constant="60" id="sW4-Eh-bG3"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邱建平" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04E-RY-z9y">
+                        <rect key="frame" x="80" y="15" width="46" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10100001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pP-Ce-0Ih">
+                        <rect key="frame" x="80" y="48.5" width="59" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNN-Bq-fDU">
+                        <rect key="frame" x="0.0" y="79" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="A7C-5n-O6C"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aoM-wM-amn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="2oV-0L-8ip"/>
+                    <constraint firstItem="2pP-Ce-0Ih" firstAttribute="leading" secondItem="aoM-wM-amn" secondAttribute="trailing" constant="10" id="RAY-eS-RmM"/>
+                    <constraint firstItem="aoM-wM-amn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ZtJ-jZ-Kjo"/>
+                    <constraint firstItem="04E-RY-z9y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="egk-I9-GcY"/>
+                    <constraint firstItem="zNN-Bq-fDU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fGc-Rb-oOs"/>
+                    <constraint firstAttribute="bottom" secondItem="zNN-Bq-fDU" secondAttribute="bottom" id="jj9-KI-tbf"/>
+                    <constraint firstItem="04E-RY-z9y" firstAttribute="leading" secondItem="aoM-wM-amn" secondAttribute="trailing" constant="10" id="seG-Ju-7hO"/>
+                    <constraint firstAttribute="bottom" secondItem="2pP-Ce-0Ih" secondAttribute="bottom" constant="15" id="tpn-Cb-xdc"/>
+                    <constraint firstAttribute="trailing" secondItem="zNN-Bq-fDU" secondAttribute="trailing" id="x5i-ll-aiY"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="iconimg" destination="aoM-wM-amn" id="b9u-HC-7Zy"/>
+                <outlet property="namelab" destination="04E-RY-z9y" id="mFo-zB-ftU"/>
+                <outlet property="numLab" destination="2pP-Ce-0Ih" id="S2C-gm-yWw"/>
+            </connections>
+            <point key="canvasLocation" x="-411" y="51"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="headIcon_0" width="80" height="80"/>
+    </resources>
 </document>

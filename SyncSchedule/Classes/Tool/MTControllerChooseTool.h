@@ -17,5 +17,7 @@
 
 + (void)setMainViewController;
 
++ (void)setLoginViewController;
+
 +(MTControllerChooseTool *)getInstance;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ScheduleModel.h"
+#import "NSDate+Compare.h"
 
 @implementation ScheduleModel
 
@@ -15,23 +16,27 @@
 {
     NSMutableArray *tempArr = [[NSMutableArray alloc] init];
     
+    NSDateFormatter *date=[[NSDateFormatter alloc] init];
+    [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+
     for (EKEvent *event in eventArr)
     {
         ScheduleModel *model = [[ScheduleModel alloc] init];
-        model.contentDigest = @"我是摘要";
+        model.contentDigest = [SecurityUtil encryptMD5String:[NSString stringWithFormat:@"%@%@",[SharedAppUtil defaultCommonUtil].usermodel.userId,model.title]];
         model.title = event.title;
-        model.startDate = event.startDate;
-        model.ownerId = @"00001";
-        model.ownerName = @"admin";
+        model.beginTime = [date stringFromDate:event.startDate];
         model.calendarType = event.calendar.title;
-        model.endDate = event.endDate;
+        model.endTime = [date stringFromDate:event.endDate];
         model.notes = event.notes && event.notes.length > 0 ? event.notes : @"";
-//        model.alarms = event.alarms;
-//        model.url= [NSString stringWithFormat:@"%@",event.URL];
-        [tempArr addObject:model];
+        
+        if ([NSDate compareOneDay:[NSDate date] withAnotherDay:event.startDate] != 1) {
+            [tempArr addObject:model];
+        }
+        
     }
     return tempArr;
 }
+
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
