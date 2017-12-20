@@ -1,0 +1,1 @@
+../../../MTSetting/MTSetting/Classes/Classes/MTCommonSwitchItem.h
