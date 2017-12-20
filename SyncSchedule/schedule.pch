@@ -1,0 +1,22 @@
+//
+//  schedule.pch
+//  SyncSchedule
+//
+//  Created by greatstar on 2017/3/28.
+//  Copyright © 2017年 greatstar. All rights reserved.
+//
+
+#ifndef schedule_pch
+#define schedule_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#endif /* schedule_pch */
+
+// 颜色
+#define MTColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#import "UIView+Extension.h"
+#import "UIColor+RGB.h"
